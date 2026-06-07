@@ -102,6 +102,9 @@ public partial class BankMlekaContext : DbContext
             entity.Property(e => e.PasswordHash)
                 .HasColumnType("text")
                 .HasColumnName("password_hash");
+            entity.Property(e => e.IsAdmin)
+                .HasDefaultValue(false)
+                .HasColumnName("is_admin");
         });
 
         modelBuilder.Entity<BabyUpdate>(entity =>

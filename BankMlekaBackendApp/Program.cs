@@ -14,6 +14,7 @@ builder.Services.AddDbContext<BankMlekaBackendApp.Models.BankMlekaContext>(optio
 
 // Register services
 builder.Services.AddScoped<BankMlekaBackendApp.Services.IAuthService, BankMlekaBackendApp.Services.AuthService>();
+builder.Services.AddScoped<BankMlekaBackendApp.Services.IBabyService, BankMlekaBackendApp.Services.BabyService>();
 
 // OpenAPI and Scalar UI
 builder.Services.AddOpenApi();
@@ -50,6 +51,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+// Redirect root to Scalar API docs
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/scalar/v1");
+    return Task.CompletedTask;
+});
 
 app.MapControllers();
 

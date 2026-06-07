@@ -1,8 +1,9 @@
 using BankMlekaBackendApp.DTOs;
+using BankMlekaBackendApp.Models;
 
 namespace BankMlekaBackendApp.Services;
 
 public interface IAuthService
 {
-    Task<bool> ValidateCredentialsAsync(string login, string password);
+    Task<User?> ValidateCredentialsAsync(string login, string password);
 }

@@ -15,13 +15,16 @@ public class AuthService : IAuthService
         _hasher = new PasswordHasher<User>();
     }
 
-    public async Task<bool> ValidateCredentialsAsync(string login, string password)
+    public async Task<User?> ValidateCredentialsAsync(string login, string password)
     {
         var user = await _db.Set<User>().FirstOrDefaultAsync(u => u.Login == login);
         if (user == null)
-            return false;
+            return null;
 
         var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
-        return result == PasswordVerificationResult.Success || result == PasswordVerificationResult.SuccessRehashNeeded;
+        if (result == PasswordVerificationResult.Success || result == PasswordVerificationResult.SuccessRehashNeeded)
+            return user;
+
+        return null;
     }
 }

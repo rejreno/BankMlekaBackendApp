@@ -23,10 +23,10 @@ public class AuthController : ControllerBase
             return Unauthorized(new AuthResponse { Message = "Invalid credentials" });
         }
 
-        var valid = await _authService.ValidateCredentialsAsync(request.Login, request.Password);
-        if (!valid)
+        var user = await _authService.ValidateCredentialsAsync(request.Login, request.Password);
+        if (user == null)
             return Unauthorized(new AuthResponse { Message = "Invalid credentials" });
 
-        return Ok(new AuthResponse { Message = "Login successful" });
+        return Ok(new AuthResponse { Message = "Login successful", IsAdmin = user.IsAdmin });
     }
 }
