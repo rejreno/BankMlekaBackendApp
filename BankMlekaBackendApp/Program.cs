@@ -15,6 +15,7 @@ builder.Services.AddDbContext<BankMlekaBackendApp.Models.BankMlekaContext>(optio
 // Register services
 builder.Services.AddScoped<BankMlekaBackendApp.Services.IAuthService, BankMlekaBackendApp.Services.AuthService>();
 builder.Services.AddScoped<BankMlekaBackendApp.Services.IBabyService, BankMlekaBackendApp.Services.BabyService>();
+builder.Services.AddScoped<BankMlekaBackendApp.Services.IParentService, BankMlekaBackendApp.Services.ParentService>();
 
 // OpenAPI and Scalar UI
 builder.Services.AddOpenApi();
